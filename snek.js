@@ -12,16 +12,32 @@ let score = 0;
 
 document.addEventListener("keydown", changeDirection); 
 
+//returns x and y coordinates relative to the size of the grid
+//food will get drawn on the draw game function
 function generateFood() {
     return {
         x: Math.floor(Math.random() * (gameSize/cell)),
         y: Math.floor(Math.random() * (gameSize/cell)),
     }
 }
-function drawGame() {
 
-}
+//function to determine direction states based on key pressed
 function changeDirection(e) {
     const key = e.code;
-    if (key === "KeyD")
+    if (key === "KeyW") {
+        direction = "up";
+    } else if (key === "KeyS") {
+        direction = "down";
+    } else if (key === "KeyA") {
+        direction = "left";
+    } else if (key === "KeyD") {
+        direction = "right";
+    }
+    // console.log(key);
+    // console.log(direction);
+}
+
+
+function drawGame() {
+
 }
