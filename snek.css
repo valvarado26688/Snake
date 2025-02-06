@@ -3,3 +3,7 @@ canvas {
     margin: 0 auto;
     background-color: black;
 }
+.score {
+    text-align: center;
+    font-size: xx-large;
+}

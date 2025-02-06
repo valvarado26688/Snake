@@ -8,8 +8,9 @@ let snake = [{ x: cell * 5, y: cell * 5}];
 
 let direction = "right";
 let food = generateFood();
-let score = 0;
 
+let gameScore = 0;
+let score = document.getElementById("score");
 document.addEventListener("keydown", changeDirection); 
 
 //returns x and y coordinates relative to the size of the grid
@@ -81,10 +82,21 @@ function drawGame() {
 
     }
 
+    //collision detection
+    if(head.x < 0 || head.y < 0 || head.x > gameSize || head.y > gameSize) {
+        clearInterval(game);
+        alert("game over!");
+        return;
+    }
+
+
     snake.unshift(head);
 
     if (head.x === food.x && head.y === food.y) {
-        score = 100;
+        // score += 100;
+        gameScore+= 100;
+        score.textContent = `score: ${gameScore}`;
+        food = generateFood();
     } else {
         snake.pop();
     }
