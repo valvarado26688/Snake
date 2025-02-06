@@ -7,7 +7,7 @@ const gameSize = 400
 let snake = [{ x: cell * 5, y: cell * 5}];
 
 let direction = "right";
-let food //this will equal to the generate food function 
+let food = generateFood();
 let score = 0;
 
 document.addEventListener("keydown", changeDirection); 
@@ -16,8 +16,8 @@ document.addEventListener("keydown", changeDirection);
 //food will get drawn on the draw game function
 function generateFood() {
     return {
-        x: Math.floor(Math.random() * (gameSize/cell)),
-        y: Math.floor(Math.random() * (gameSize/cell)),
+        x: Math.floor(Math.random() * (gameSize/cell)) * cell,
+        y: Math.floor(Math.random() * (gameSize/cell)) * cell,
     }
 }
 
@@ -39,5 +39,58 @@ function changeDirection(e) {
 
 
 function drawGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); //clear game canvas
+
+    //draw snake
+    snake.forEach((segment, i) => {
+        if (i === 0) {
+            ctx.fillStyle = "lime";
+        } else {
+            ctx.fillStyle = "green"; //coding assist
+        }
+        ctx.fillRect(segment.x, segment.y, cell, cell);
+    })
+
+    //draw food
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, cell, cell);
+
+    //move snake
+    let head = { ...snake[0] };
+    // console.log(head);
+    console.log(snake);
+    // console.log(direction);
+    // console.log(head.x);
+    if (direction === "left") {
+        head.x -= cell;
+        // snake.push(head);
+    }
+    if (direction === "right") {
+        head.x += cell;
+        // snake.push(head);
+
+    }
+    if (direction === "up") {
+        head.y -= cell;
+        // snake.push(head);
+
+    }
+    if (direction === "down") {
+        head.y += cell;
+        // snake.push(head);
+
+    }
+
+    snake.unshift(head);
+
+    if (head.x === food.x && head.y === food.y) {
+        score = 100;
+    } else {
+        snake.pop();
+    }
 
 }
+
+//game runs when the page is finished loading
+const game = setInterval(drawGame, 100)
+// drawGame();s
