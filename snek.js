@@ -44,10 +44,10 @@ function drawGame() {
 
     //draw snake
     snake.forEach((segment, i) => {
-        if (i === 0) {
-            ctx.fillStyle = "lime";
-        } 
+        ctx.fillStyle = "lime";
         ctx.fillRect(segment.x, segment.y, cell, cell);
+        ctx.strokeStyle = "green";
+        ctx.strokeRect(segment.x, segment.y, cell, cell);
     })
 
     //draw food
