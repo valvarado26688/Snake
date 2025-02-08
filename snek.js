@@ -46,9 +46,7 @@ function drawGame() {
     snake.forEach((segment, i) => {
         if (i === 0) {
             ctx.fillStyle = "lime";
-        } else {
-            ctx.fillStyle = "green"; //coding assist
-        }
+        } 
         ctx.fillRect(segment.x, segment.y, cell, cell);
     })
 
@@ -56,53 +54,42 @@ function drawGame() {
     ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, cell, cell);
 
-    //move snake
+    //collision detection
     let head = { ...snake[0] };
-    // console.log(head);
+    
+    //move snake
     console.log(snake);
-    // console.log(direction);
-    // console.log(head.x);
     if (direction === "left") {
         head.x -= cell;
-        // snake.push(head);
     }
     if (direction === "right") {
         head.x += cell;
-        // snake.push(head);
-
     }
     if (direction === "up") {
         head.y -= cell;
-        // snake.push(head);
-
     }
     if (direction === "down") {
         head.y += cell;
-        // snake.push(head);
-
     }
-
-    //collision detection
-    if(head.x < 0 || head.y < 0 || head.x > gameSize || head.y > gameSize) {
+    console.log(head.x, head.y);
+    if(head.x < 0 || head.y < 0 || head.x > gameSize - 20 || head.y > gameSize - 20) {
         clearInterval(game);
-        alert("game over!");
+        console.log("game over!");
         return;
     }
-
-
+    
+    //if there is no collision add new segment
     snake.unshift(head);
 
     if (head.x === food.x && head.y === food.y) {
-        // score += 100;
         gameScore+= 100;
         score.textContent = `score: ${gameScore}`;
         food = generateFood();
     } else {
-        snake.pop();
+        snake.pop(); //if food is not eaten remove last segment
     }
 
 }
 
 //game runs when the page is finished loading
 const game = setInterval(drawGame, 100)
-// drawGame();s
