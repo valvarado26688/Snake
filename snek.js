@@ -92,4 +92,4 @@ function drawGame() {
 }
 
 //game runs when the page is finished loading
-const game = setInterval(drawGame, 100)
+const game = setInterval(drawGame, 85);
